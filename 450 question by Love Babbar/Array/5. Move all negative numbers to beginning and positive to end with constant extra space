@@ -1,0 +1,24 @@
+//Link for the question- https://www.geeksforgeeks.org/move-negative-numbers-beginning-positive-end-constant-extra-space/
+#include <bits/stdc++.h>
+#include<vector>
+using namespace std;
+int main(){
+    int n;
+    cin>>n;
+    int A[n];
+    vector<int> l_array;
+    vector<int> r_array;
+    for(int i=0;i<n;i++){
+        int x;
+        cin>>x;
+        if(x<0) l_array.push_back(x);
+        if(x>=0) r_array.push_back(x);
+    }
+    cout<<l_array.size()<<" "<<r_array.size()<<endl;
+    for(int i=0;i<n;i++){
+        if(i<l_array.size()) A[i]=l_array[i];
+        else A[i]=r_array[i-l_array.size()];
+    }
+    for(int i=0;i<n;i++) cout<<A[i]<<" ";
+    return 0;
+}
