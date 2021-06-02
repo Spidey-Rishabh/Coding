@@ -1,1 +1,63 @@
 //Link of the question-https://practice.geeksforgeeks.org/problems/inversion-of-array-1587115620/1
+#include <bits/stdc++.h>
+using namespace std;
+class Solution{
+  public:
+    long long count=0;
+    void merge(long long a[],long long p,long long q,long long r){
+        long long l1=q-p+1;
+        long long l2=r-q;
+        long long l[l1],ri[l2];
+        for(long long i=0;i<l1;i++) l[i]=a[i+p];
+        for(long long i=0;i<l2;i++) ri[i]=a[i+q+1];
+        long long left=0,right=0,k=p;
+        while(left<l1 && right<l2){
+            if(l[left]<=ri[right]){
+                a[k]=l[left];
+                left++;
+            }
+            else{
+                a[k]=ri[right];
+                right++;
+                count+=(l1-left);
+            }
+            k++;
+        }
+        while(left<l1){
+            a[k++]=l[left++];
+        }
+        while(right<l2){
+            a[k++]=ri[right++];
+        }
+    }
+    void mergesort(long long a[], long long p,long long r){
+        if(p<r){
+            long long q=(p+r)/2;
+            mergesort(a,p,q);
+            mergesort(a,q+1,r);
+            merge(a,p,q,r);
+        }
+    }
+    long long int inversionCount(long long arr[], long long N){
+        // Your Code Here
+        mergesort(arr,0,N-1);
+        long long ans=count;
+        count=0;
+        return ans;
+    }
+};
+int main(){
+    long long T;
+    cin>>T;
+    while(T--){
+        long long N;
+        cin>>N;
+        long long A[N];
+        for(long long i=0;i<N;i++){
+            cin >> A[i];
+        }
+        Solution obj;
+        cout<<obj.inversionCount(A,N)<<endl;
+    }   
+    return 0;
+}
