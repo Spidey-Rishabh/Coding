@@ -1,1 +1,31 @@
 //Link of the question-https://practice.geeksforgeeks.org/problems/count-element-occurences/1#
+#include<bits/stdc++.h>
+using namespace std;
+class solution{
+    public:
+    int max_profit(int a[],int n,int k){
+        int profit[k+1][n+1];
+        for(int i=0;i<=k;i++) profit[i][0]=0;
+        for(int i=0;i<=n;i++) profit[0][i]=0;
+        for(int i=1;i<=k;i++){
+            int diff=INT_MIN;
+            for(int j=1;j<n;j++){
+                diff=max(diff,profit[i-1][j-1]-a[j-1]);
+                profit[i][j]=max(profit[i][j-1],a[j]+diff);
+            }
+        }
+        return profit[k][n-1];
+    }
+};
+int main(){
+    int n;
+    cin>>n;
+    int a[n];
+    for(int i=0;i<n;i++) cin>>a[i];
+    int k;
+    //cin>>k;
+    k=2;//in this case k=2 as,at most 2 Transictions are possible
+    solution ob;
+    cout<<ob.max_profit(a,n,k);
+    return 0;
+}
