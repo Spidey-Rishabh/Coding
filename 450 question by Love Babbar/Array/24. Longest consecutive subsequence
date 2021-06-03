@@ -1,0 +1,44 @@
+//link of the question-https://practice.geeksforgeeks.org/problems/longest-consecutive-subsequence2449/1
+#include <bits/stdc++.h>
+using namespace std;
+class Solution{
+  public:
+    int findLongestConseqSubseq(int arr[], int N){
+      //Your code here
+      if(N==1) return 1;
+      set<int> s1;
+      vector<int> v;
+      s1.insert(0);
+      for(int i=0;i<N;i++){
+          s1.insert(arr[i]);
+      }
+      set<int>:: iterator it;
+      for(it=s1.begin();it!=s1.end();it++){
+          v.push_back(*it);
+      }
+      int max_count=0,count=1;
+      for(int i=1;i<v.size();i++){
+          //cout<<v[i]<<" ";
+          if(i==1 && v[i]==1)count=1;
+          else{
+            if(v[i]-v[i-1]==1) count++;
+            else count=1;
+            //cout<<count<<endl;
+            max_count=max(max_count,count);
+          }
+        }
+      return max_count;
+    }
+};
+int main(){
+ int  t,n,i,a[100001];
+ cin>>t;
+ while(t--){
+  cin>>n;
+  for(i=0;i<n;i++)
+  cin>>a[i];
+  Solution obj;
+  cout<<obj.findLongestConseqSubseq(a, n)<<endl;
+ }
+ return 0;
+}
