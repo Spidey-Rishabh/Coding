@@ -1,1 +1,68 @@
 //Link of the question-https://practice.geeksforgeeks.org/problems/max-rectangle/1
+#include <bits/stdc++.h>
+using namespace std;
+#define MAX 1000
+class Solution{
+  public:
+    int max_a(int row[],int m1){
+        stack<int> result;
+        int top_v;
+        int max_area=0;
+        int area=0;
+        int i=0;
+        for(int i=0;i<m1;){
+            if(result.empty() || row[result.top()]<=row[i])
+                result.push(i++);
+            else{
+                top_v=row[result.top()];
+                result.pop();
+                area=top_v*i;
+                
+                if(!result.empty()) area=top_v*(i-result.top()-1);
+                
+                max_area=max(area,max_area);
+            }
+        }
+        while(!result.empty()){
+            top_v=row[result.top()];
+            result.pop();
+            area=top_v*i;
+            
+            if(!result.empty()) area=top_v*(i-result.top()-1);
+            
+            max_area=max(area,max_area);
+            
+        }
+        return max_area;
+    }
+    int k(int M[MAX][MAX],int n,int m){
+        int ans=max_a(M[0],m);
+        for(int i=1;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(M[i][j]==1) M[i][j]+=M[i-1][j];
+            }
+            ans=max(ans,max_a(M[i],m));
+        }
+        return ans;
+    }
+    int maxArea(int M[MAX][MAX], int n, int m) {
+        // Your code here
+        return k(M,n,m);
+    }
+};
+int main(){
+    int T;
+    cin>>T;
+    int M[MAX][MAX];
+    while(T--){
+        int n,m;
+        cin>>n>>m;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                cin>>M[i][j];
+            }
+        }
+        Solution obj;
+        cout<<obj.maxArea(M,n,m)<<endl;
+    }
+}
