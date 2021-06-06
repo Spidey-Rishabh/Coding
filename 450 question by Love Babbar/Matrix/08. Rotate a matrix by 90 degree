@@ -12,7 +12,7 @@ void print(int arr[N][N]){
 void rotate(int arr[N][N]){
 		for(int i = 0; i < N; i++){
 		for(int j = 0; j < N - i; j++){
-      swap(arr[i][j],arr[N-1-j][N-1-i];
+      swap(arr[i][j],arr[N-1-j][N-1-i]);
 		}
 	}
 	for(int i = 0; i < N / 2; i++){
