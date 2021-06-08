@@ -1,0 +1,54 @@
+//Link of the question-https://practice.geeksforgeeks.org/problems/next-permutation5226/1#
+#include <bits/stdc++.h>
+using namespace std;
+class Solution {
+public:
+    vector<int> nextPermutation(int N, vector<int> nums){
+        int pos;
+        if(nums.size()==1) return nums;
+        if(nums.size()==2){
+            swap(nums[0],nums[1]);
+            return nums;
+        }
+        for(int i=nums.size()-2;i>=0;i--){
+            if(nums[i]<nums[i+1]){
+                pos=i;
+                break;
+            }
+            else pos=-1;
+        }//cout<<pos<<endl;
+        if(pos==-1){
+            sort(nums.begin(),nums.end());
+        }
+        else{
+            int diff=INT_MAX,pos2;
+            for(int i=pos+1;i<nums.size();i++){
+                if(nums[i]-nums[pos]<=diff && nums[i]-nums[pos]>0){
+                    diff=nums[i]-nums[pos];
+                    pos2=i;
+                }
+            }//cout<<pos2<<endl;
+            swap(nums[pos],nums[pos2]);
+            reverse(nums.begin()+pos+1,nums.end());
+        }
+        return nums;
+    }
+};
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        int N;
+        cin>>N;
+        vector<int> arr(N);
+        for(int i = 0;i < N;i++)
+            cin>>arr[i];
+        
+        Solution ob;
+        vector<int> ans = ob.nextPermutation(N, arr);
+        for(int u: ans)
+            cout<<u<<" ";
+        cout<<"\n";
+    }
+    return 0;
+}
