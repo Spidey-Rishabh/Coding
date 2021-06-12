@@ -1,0 +1,50 @@
+//Link of the question-https://practice.geeksforgeeks.org/problems/count-occurences-of-a-given-word-in-a-2-d-array/1/
+#include <bits/stdc++.h>
+using namespace std;
+class Solution{
+    public:
+    int findOccurrence(vector<vector<char> > &mat, string target){
+        int found=0;
+        int r,c;
+        for(r=0;r<mat.size();r++){
+            for(c=0;c<mat[r].size();c++){
+                found+=find(mat,target,r,c,0);
+            }
+        }
+        return found;
+    }
+    int find(vector<vector<char>> &mat,string target,int i,int j,int index){
+        if(i<0||j<0||i>=mat.size()||j>=mat[i].size()) return 0;
+        char ans=mat[i][j];
+        if(ans!=target[index]) return 0;
+        if(index==target.size()-1) return 1;
+        
+        int count=0;
+        mat[i][j]='\0';
+        
+        count+=find(mat,target,i+1,j,index+1);
+        count+=find(mat,target,i,j+1,index+1);
+        count+=find(mat,target,i-1,j,index+1);
+        count+=find(mat,target,i,j-1,index+1);
+        
+        mat[i][j]=ans;
+        return count;
+    }
+};
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        int R,C;
+        cin>>R>>C;
+        vector<vector<char>> mat(R);
+        for(int i=0;i<R;i++) {
+            mat[i].resize(C);
+            for(int j=0;j<C;j++) cin>>mat[i][j];
+        }
+        string target;
+        cin>>target;
+        Solution obj;
+        cout<<obj.findOccurrence(mat,target)<<endl;
+    }
+}
