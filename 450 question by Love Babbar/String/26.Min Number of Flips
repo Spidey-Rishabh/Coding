@@ -1,0 +1,28 @@
+//Link of the question-https://practice.geeksforgeeks.org/problems/min-number-of-flips3210/1
+#include<bits/stdc++.h>
+using namespace std;
+int minFlips(string s);
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        string s;
+        cin>>s;
+        cout<<minFlips(s)<<endl;
+    }
+}
+char needed(char value){
+    return (value=='0') ?'1':'0';
+}
+int ans(string s,char value){
+    int flip=0;
+    for(int i=0;i<s.length();i++){
+        if(s[i]!=value) flip++;
+        value=needed(value);
+    }
+    return flip;
+}
+int minFlips (string S){
+    // your code here
+    return min(ans(S,'0'),ans(S,'1'));
+}
