@@ -1,0 +1,48 @@
+//Link of the question-https://practice.geeksforgeeks.org/problems/smallest-distant-window3132/1#
+#include <bits/stdc++.h>
+using namespace std;
+class Solution{
+    public:
+    string findSubString(string str){
+        // Your code goes here   
+        int n=str.length();
+        int distint=0;
+        bool appeared[256]={false};
+        for(int i=0;i<n;i++){
+            if(appeared[str[i]]==false){
+                appeared[str[i]]=true;
+                distint++;
+            }
+        }
+        int start=0,index=-1,min=INT_MAX,count=0,curr[256]={0};
+        for(int i=0;i<n;i++){
+            curr[str[i]]++;
+            if(curr[str[i]]==1) count++;
+            if(count==distint){
+                while(curr[str[start]]>1){
+                    if(curr[str[start]]>1)
+                        curr[str[start]]--;
+                        start++;
+                }
+                int len=i-start+1;
+                if(min>len){
+                    min=len;
+                    index=start;
+                }
+            }
+        }
+        return str.substr(index,min);
+    }
+};
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+
+        string str;
+        cin >> str;
+        Solution ob;
+        cout << ob.findSubString(str).size() << endl;
+    }
+    return 0;
+}
