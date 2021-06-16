@@ -1,0 +1,67 @@
+//Link of the question-https://practice.geeksforgeeks.org/problems/generate-ip-addresses/1
+#include <bits/stdc++.h>
+using namespace std;
+class Solution{
+  public:
+     bool isvalid(int& no){
+        if(no>=0 && no<=255)
+            return true;
+        else
+            return false;
+    }
+    void FindIP(int start, int count, string& str, int& size, string temp, vector<string>& store){
+        if(count>4){
+            if(start>=size){
+                temp.pop_back();
+                store.push_back(temp);
+            }
+            return;
+        }
+        int num=0;
+        for(int i=0;i<3&&(start+i)<size;++i){   
+            if(start>size)
+             return;
+            
+            if(count==4&&str[start]=='0'&&(start+i)<(size-1))
+                return;
+            
+            num=(num*10)+(str[i+start]-'0'); 
+            
+            if(isvalid(num)){
+                temp.append(to_string(num));
+                FindIP(start+i+1,count+1,str,size,temp+'.',store);   
+                temp.erase(temp.size()-i-1, i+1);
+            }  
+            
+            if(str[start]=='0')         
+            return;
+        }
+    }
+    vector<string> genIp(string &s) {
+        // Your code here
+        vector<string>ans;
+        int sz=s.length();
+        string t="";
+        if(sz>12) return ans;
+        
+        FindIP(0,1,s,sz,t,ans);
+        
+        return ans;
+    }
+
+};
+int main() {
+    int T;
+    cin >> T;
+    while (T--) {
+        string s;
+        cin >> s;
+        /*generating naively*/
+        Solution obj;
+        vector<string> str = obj.genIp(s);
+        sort(str.begin(), str.end());
+        for (auto &u : str) {
+            cout << u << "\n";
+        }
+    }
+}
