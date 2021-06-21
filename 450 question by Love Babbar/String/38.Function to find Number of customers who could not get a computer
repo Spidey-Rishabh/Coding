@@ -1,0 +1,41 @@
+//Link of the question-https://www.geeksforgeeks.org/function-to-find-number-of-customers-who-could-not-get-a-computer/
+#include<iostream>
+#include<cstring>
+using namespace std;
+#define MAX_CHAR 26
+int runCustomerSimulation(int n, const char *seq){
+	// seen[i] = 0, indicates that customer 'i' is not in cafe
+	// seen[1] = 1, indicates that customer 'i' is in cafe but
+	//			 computer is not assigned yet.
+	// seen[2] = 2, indicates that customer 'i' is in cafe and
+	//			 has occupied a computer.
+	char seen[MAX_CHAR] = {0};
+	int res = 0;
+	int occupied = 0; // To keep track of occupied computers
+	for (int i=0; seq[i]; i++){
+		int ind = seq[i] - 'A';
+		if (seen[ind] == 0)		{
+			seen[ind] = 1;
+			if(occupied<n){
+				occupied++;
+				seen[ind] = 2;
+			}
+			else
+				res++;
+		}
+		else{
+			if (seen[ind] == 2)
+			occupied--;
+		seen[ind] = 0;
+		}
+	}
+	return res;
+}
+int main(){
+	cout << runCustomerSimulation(2, "ABBAJJKZKZ") << endl;
+	cout << runCustomerSimulation(3, "GACCBDDBAGEE") << endl;
+	cout << runCustomerSimulation(3, "GACCBGDDBAEE") << endl;
+	cout << runCustomerSimulation(1, "ABCBCA") << endl;
+	cout << runCustomerSimulation(1, "ABCBCADEED") << endl;
+	return 0;
+}
