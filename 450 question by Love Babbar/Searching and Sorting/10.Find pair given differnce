@@ -1,0 +1,30 @@
+//link of the question-https://practice.geeksforgeeks.org/problems/find-pair-given-difference1559/1
+#include<bits/stdc++.h>
+using namespace std; 
+bool findPair(int arr[], int size, int n);
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        int l,n;
+        cin>>l>>n;
+        int arr[l];
+        for(int i=0;i<l;i++)
+            cin>>arr[i];
+        if(findPair(arr, l, n))
+            cout<<1<<endl;
+        else cout<<"-1"<<endl;
+    }  
+    return 0;
+}
+bool findPair(int arr[], int size, int N){
+    //code
+    sort(arr,arr+size);
+    int low=0,high=1;
+    while(low<size && high<size){
+        if((arr[high]-arr[low])==N) return true;
+        if(arr[high]-arr[low] > N) low++;
+        else high++;
+    }
+    return false;
+}
