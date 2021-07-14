@@ -1,0 +1,48 @@
+//Link of the question-https://www.spoj.com/problems/ANARC05B/
+#include<bits/stdc++.h>
+using namespace std;
+int res(int n,vector<int> first,int m,vector<int> second){
+    int i=0,j=0;
+    long long s1=0,s2=0;
+    while(i<n || j<m) {           
+        if(i < n && j < m && first[i] == second[j]) {
+            s1 += first[i];
+            s2 += second[j];
+            s1 = s2 = max(s1,s2);
+            i++,j++;
+        } else if(i >= n) {                
+            s2 += second[j];
+            j++;
+        } else if(j >= m) {               
+            s1 += first[i];
+            i++;
+        } else if(first[i] < second[j]) {              
+            s1 += first[i];
+            i++;
+        } else if(first[i] > second[j]){
+            s2 += second[j];
+            j++;
+        }
+    }
+    return max(s1,s2);
+}
+void solve(){
+    int n;
+    cin>>n;
+    vector<int> v(n);
+    for(int i=0;i<n;i++) cin>>v[i];
+    int m;
+    cin>>m;
+    vector<int> u(m);
+    for(int i=0;i<m;i++) cin>>u[i];
+    cout<<res(n,v,m,u)<<endl;
+}
+int main(){
+    int tc;
+    cin>>tc;
+    while(tc--){
+        solve();
+    }
+    cout<<tc;
+    return 0;
+}
