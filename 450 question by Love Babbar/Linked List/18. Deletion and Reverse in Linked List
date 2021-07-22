@@ -1,0 +1,44 @@
+//Link of the linked list-https://practice.geeksforgeeks.org/problems/deletion-and-reverse-in-linked-list/1
+void deleteNode(struct Node **head, int key){
+    struct Node* temp=*head, *prev;
+    while(temp->next!=*head){
+        temp=temp->next;
+    }
+    temp->next=NULL;
+    temp=*head;
+    while(temp->data!=key){
+        prev=temp;
+        temp=temp->next;
+    }
+
+    prev->next=temp->next;
+    
+    temp=*head;
+    
+    while(temp->next){
+        temp=temp->next;
+    }
+    temp->next=*head;
+}
+
+
+/* Function to reverse the linked list */
+    void reverse(struct Node** head){
+        struct Node* temp=*head, *prev=NULL, *curr=*head, *next;
+        while(temp->next!=*head){
+        temp=temp->next;
+        }
+        temp->next=NULL;
+        while(curr){
+            next=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=next;
+        }
+        *head=prev;
+        temp=*head;
+        while(temp->next){
+            temp=temp->next;
+        }
+        temp->next=*head;
+    }
