@@ -1,5 +1,19 @@
 //Link of the question-https://www.geeksforgeeks.org/count-triplets-sorted-doubly-linked-list-whose-sum-equal-given-value-x/
-
+int countPairs(struct Node* first,struct Node* second,int value){
+    int count=0;
+    while(first!=NULL && second!=NULL &&  first!=second && second->next!=first){
+        if((first->data+second->data)==value){
+            count++;
+            first=first->next;
+            second=second->prev;
+        }
+        else if((first->data+second->data)>value)
+            second=second->prev;
+        else
+            first=first->next;
+    }
+    return count;
+}
 int countTriplets(struct Node* head, int x){
     if (head == NULL) return 0;
     struct Node* current,*first,*last;
