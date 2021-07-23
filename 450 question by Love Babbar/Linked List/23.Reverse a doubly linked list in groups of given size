@@ -1,0 +1,20 @@
+//Link of the question-https://www.geeksforgeeks.org/reverse-doubly-linked-list-groups-given-size/
+Node* reverseByN(Node* head, int k){
+    if (!head)
+        return NULL;
+    head->prev = NULL;
+    Node *temp, *curr = head, *newHead;
+    int count = 0;
+    while (curr != NULL && count < k) {
+        newHead = curr;
+        temp = curr->prev;
+        curr->prev = curr->next;
+        curr->next = temp;
+        curr = curr->prev;
+        count++;
+    }
+    if (count>=k){
+        head->next=reverseByN(curr,k);
+    }
+    return newHead;
+}
