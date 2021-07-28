@@ -1,0 +1,20 @@
+//Link of the question-https://practice.geeksforgeeks.org/problems/nth-node-from-end-of-linked-list/1#
+int getNthFromLast(Node *head, int n){
+       // Your code here
+       Node *temp=head;
+       int k;
+       while(temp){
+           k++;
+           temp=temp->next;
+       }
+       int l=k-n+1;
+       if(l<=0) return -1;
+       l--;
+       temp=head;
+       while(l--){
+           temp=temp->next;
+       }
+       int x=temp->data;
+       return x;
+       //return temp->data;
+}
