@@ -1,8 +1,43 @@
 //Link of the question-https://practice.geeksforgeeks.org/problems/segregate-even-and-odd-nodes-in-a-linked-list5035/1
 class Solution{
 public:
-    Node* divide(int N, Node *head){
+    Node* divide(int N, Node *head_ref){
         // code here
+        Node *evenStart = NULL;
+        Node *evenEnd = NULL;
+        Node *oddStart = NULL;
+        Node *oddEnd = NULL;
+        Node *currNode = head_ref;
+        while(currNode != NULL){
+            int val = currNode -> data;
+            if(val % 2 == 0) {
+                if(evenStart == NULL){
+                    evenStart = currNode;
+                    evenEnd = evenStart;
+                }
+                else{
+                    evenEnd -> next = currNode;
+                    evenEnd = evenEnd -> next;
+                }
+            }
+            else{
+                if(oddStart == NULL){
+                    oddStart = currNode;
+                    oddEnd = oddStart;
+                }
+                else{
+                    oddEnd -> next = currNode;
+                    oddEnd = oddEnd -> next;
+                }
+            }
+            currNode = currNode -> next;   
+        }
+        if(oddStart == NULL || evenStart == NULL){
+            return head_ref;
+        }    
+        evenEnd -> next = oddStart;
+        oddEnd -> next = NULL;
         
+        return evenStart;
     }
 };
