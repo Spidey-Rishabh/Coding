@@ -1,0 +1,8 @@
+//Link of the question-https://practice.geeksforgeeks.org/problems/segregate-even-and-odd-nodes-in-a-linked-list5035/1
+class Solution{
+public:
+    Node* divide(int N, Node *head){
+        // code here
+        
+    }
+};
