@@ -1,0 +1,12 @@
+//Link of the question-https://practice.geeksforgeeks.org/problems/preorder-traversal/1#
+void preorderUtil(Node* root,vector<int>&res){
+  if(root==NULL) return;
+  res.push_back(root->data);
+  preorderUtil(root->left,res);
+  preorderUtil(root->right,res);
+}
+vector<int>preorder(Node *root){
+    vector<int>res;
+    preorderUtil(root,res);
+    return res;
+}
