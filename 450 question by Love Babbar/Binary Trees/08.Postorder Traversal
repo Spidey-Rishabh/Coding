@@ -1,0 +1,14 @@
+//Link of the question-https://practice.geeksforgeeks.org/problems/postorder-traversal/1#
+void postorder(Node * root,vector<int>&res){
+  if(root==NULL) return;
+  
+  postorder(root->left,res);
+  postorder(root->right,res);
+  res.push_back(root->data);
+}
+vector <int> postOrder(Node* root){
+  // Your code here
+  vector<int> res;
+  postorder(root,res);
+  return res;
+}
