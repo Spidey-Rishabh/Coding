@@ -1,0 +1,38 @@
+//Link of the question-https://practice.geeksforgeeks.org/problems/top-view-of-binary-tree/1#
+class Solution{
+    public:
+    vector<int> topView(Node *root){
+        vector<int> v;
+        stack<int>left;
+        vector<int>right;
+        queue<pair<Node *,int>>q;
+        int hd=0,l=0,r=0;
+        q.push(make_pair(root,0));
+        Node *node;
+        while(q.size()){
+            node=q.front().first;
+            hd=q.front().second;
+            if(hd<l){
+                left.push(node->data);
+                l=hd;
+            }
+            else if(hd>r){
+                right.push_back(node->data);
+                r=hd;
+            }
+            if(node->left) q.push(make_pair(node->left,hd-1));
+            if(node->right) q.push(make_pair(node->right,hd+1));
+            q.pop();
+        }
+        while(left.size()){
+            v.push_back(left.top());
+            left.pop();
+        }
+        v.push_back(root->data);
+        for(auto x :right){
+            v.push_back(x);
+        }
+        return v;
+    }
+
+};
