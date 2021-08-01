@@ -1,0 +1,22 @@
+//Link of the question-https://practice.geeksforgeeks.org/problems/right-view-of-binary-tree/1
+class Solution{
+    public:
+    void RightView(Node *root, vector<int> &res,int level,int *max_level){
+        if(root==NULL) return;
+        if(level > *max_level){
+            res.push_back(root->data);
+            *max_level=level;
+        }
+        RightView(root->right,res,level+1,max_level);
+        RightView(root->left,res,level+1,max_level);
+        
+    }
+    //Function to return list containing elements of right view of binary tree.
+    vector<int> rightView(Node *root){
+       // Your Code here
+       vector<int> res;
+       int max_level=0;
+       RightView(root,res,1,&max_level);
+       return res;
+    }
+};
