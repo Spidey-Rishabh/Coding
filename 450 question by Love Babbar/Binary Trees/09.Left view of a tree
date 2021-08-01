@@ -1,0 +1,17 @@
+//Link of the question-https://practice.geeksforgeeks.org/problems/left-view-of-binary-tree/1#
+void LeftView(Node *root, vector<int> &res,int level,int *max_level){
+    if(root==NULL) return;
+    if(level > *max_level){
+        res.push_back(root->data);
+        *max_level=level;
+    }
+    LeftView(root->left,res,level+1,max_level);
+    LeftView(root->right,res,level+1,max_level);
+}
+vector<int> leftView(Node *root){
+   // Your code here
+   vector<int> res;
+   int max_level=0;
+   LeftView(root,res,1,&max_level);
+   return res;
+}
