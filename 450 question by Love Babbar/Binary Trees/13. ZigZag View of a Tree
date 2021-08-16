@@ -1,0 +1,36 @@
+//Link of the question-https://practice.geeksforgeeks.org/problems/zigzag-tree-traversal/1#
+class Solution{
+    public:
+    //Function to store the zig zag order traversal of tree in a list.
+    vector <int> zigZagTraversal(Node* root){
+    	// Code here
+    	vector<int> v;
+    	if(!root) return v;
+    	stack<Node *> current;
+    	stack<Node *> next;
+    	
+    	current.push(root);
+    	
+    	bool lor=true;
+    	while(!current.empty()){
+    	    struct Node* temp=current.top();
+    	    current.pop();
+    	    if(temp){
+    	        v.push_back(temp->data);
+    	        if(lor){
+    	            if(temp->left) next.push(temp->left);
+    	            if(temp->right) next.push(temp->right);
+    	        }
+    	        else{
+    	            if(temp->right) next.push(temp->right);
+    	            if(temp->left) next.push(temp->left);
+    	        }
+    	    }
+    	    if(current.empty()){
+    	        lor=!lor;
+    	        swap(current,next);
+    	    }
+    	}
+    	return v;
+    }
+};
