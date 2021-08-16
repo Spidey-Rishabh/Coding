@@ -1,0 +1,24 @@
+//Link of the question-https://practice.geeksforgeeks.org/problems/check-for-balanced-tree/1#
+class Solution{
+    public:
+    //Function to check whether a binary tree is balanced or not.
+    bool balanced(Node * root ,int * h){
+        int lh=0,rh=0;
+        int l=0,r=0;
+        if(root==NULL){
+            *h=0;
+            return 1;
+        }
+        l=balanced(root->left,&lh);
+        r=balanced(root->right,&rh);
+        *h=(lh>rh?lh:rh)+1;
+        if(abs(lh-rh)>=2) return 0;
+        else return l&&r;
+    }
+    bool isBalanced(Node *root){
+        //  Your Code here
+        int h=0;
+        if(balanced(root,&h)) return 1;
+        else return 0;
+    }
+};
