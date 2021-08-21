@@ -1,0 +1,22 @@
+//Link of the question-https://practice.geeksforgeeks.org/problems/diagonal-traversal-of-binary-tree/1#
+vector<int> diagonal(Node *root){
+   // your code here
+   vector<int> res;
+   if(!root) return res;
+   queue<Node*> LeftSide;
+   Node* node=root;
+   
+   while(node){
+       res.push_back(node->data);
+       if(node->left) LeftSide.push(node->left);
+       if(node->right) node=node->right;
+       else{
+           if(!LeftSide.empty()){
+               node=LeftSide.front();
+               LeftSide.pop();
+           }
+           else node=NULL;
+       }
+   }
+   return res;
+}
