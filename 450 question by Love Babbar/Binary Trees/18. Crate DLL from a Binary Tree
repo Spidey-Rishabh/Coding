@@ -1,0 +1,30 @@
+//Link of the question-https://practice.geeksforgeeks.org/problems/binary-tree-to-dll/1#
+class Solution{
+    public: 
+    void res(Node *root,Node **head, Node **tail){
+        if(root==NULL) return ;
+        
+        Node *left=root->left;
+        Node *right=root->right;
+        
+        res(root->left,head,tail);
+        
+        if(*head==NULL ) *head=root;
+        root->left=*tail;
+        
+        if(*tail !=NULL) (*tail)->right=root;
+        *tail=root;
+        
+        res(root->right,head,tail);
+    }
+    Node * bToDLL(Node *root){
+        // your code here
+        if(root==NULL) return root;
+        
+        Node *head=NULL;
+        Node *tail=NULL;
+        res(root,&head,&tail);
+        
+        return head;
+    }
+};
