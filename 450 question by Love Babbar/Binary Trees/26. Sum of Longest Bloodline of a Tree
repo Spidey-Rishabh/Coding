@@ -1,0 +1,23 @@
+//Link of the question-https://practice.geeksforgeeks.org/problems/sum-of-the-longest-bloodline-of-a-tree/1
+class Solution{
+public:
+    void sumOfLongRootToLeafPath1(Node *root,int sum,int l,int &Length,int &res){
+        if(!root){
+            if(Length<l){
+                Length=l;
+                res=sum;
+            }
+            else if(Length==l && res<sum) res=sum;
+            return;
+        }
+        sumOfLongRootToLeafPath1(root->left,sum+root->data,l+1,Length,res);
+        sumOfLongRootToLeafPath1(root->right,sum+root->data,l+1,Length,res);
+    }
+    int sumOfLongRootToLeafPath(Node *root){
+        //code here
+        if(root==NULL) return 0;
+        int res=INT_MIN,Length=0;
+        sumOfLongRootToLeafPath1(root,0,0,Length,res);
+        return res;
+    }
+};
