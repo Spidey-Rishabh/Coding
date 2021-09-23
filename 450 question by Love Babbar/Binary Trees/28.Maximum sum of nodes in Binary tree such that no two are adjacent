@@ -1,0 +1,20 @@
+//Link of the question-https://www.geeksforgeeks.org/maximum-sum-nodes-binary-tree-no-two-adjacent/
+int myFun(Node root, unordered_map<struct Node, int>& mp){
+    if(root==NULL){
+        return 0;
+    }
+    if (mp.find(root) != mp.end()){
+        return mp[root];
+    }
+    int oldVal = root->data;
+    int newVal = max((oldVal + (root->left ? myFun(root->left->left, mp) : 0) + (root->left ? myFun(root->left->right, mp) : 0) + (root->right ? myFun(root->right->left, mp) : 0) + (root->right ? myFun(root->right->right, mp) : 0)), (myFun(root->left, mp) + myFun(root->right, mp)));
+    mp[root] = max(mp[root], newVal);
+    return mp[root];
+}
+int getMaxSum(Node *root) {
+    if (root == NULL){
+        return 0;
+    }
+    unordered_map<struct Node*, int> mp;
+    return myFun(root, mp);
+}
