@@ -1,0 +1,22 @@
+//Link of the question-https://practice.geeksforgeeks.org/problems/duplicate-subtrees/1#
+string printAllDups1(Node* root,vector<Node*>& res,unordered_map<string,int>&m){
+    if(!root) return "# ";
+    string node=to_string(root->data)+" ";
+    node+=printAllDups1(root->left,res,m);
+    node+=printAllDups1(root->right,res,m);
+    if(m.count(node) && m[node]==1){
+        res.push_back(root);
+        m[node]++;
+    }
+    else if(!m.count(node)){
+        m[node]=1;
+    }
+    return node;
+}
+
+vector<Node*> printAllDups(Node* root){
+    vector<Node*> res;
+    unordered_map<string, int> m;
+    printAllDups1(root, res, m);
+    return res;
+}
