@@ -1,0 +1,9 @@
+//Link of the question-https://practice.geeksforgeeks.org/problems/search-a-node-in-bst/1
+// Function to search a node in BST.
+bool search(Node* root, int x) {
+    // Your code here
+    if(root==NULL) return false;
+    if(root->data==x) return true;
+    else if(x<root->data) return search(root->left,x);
+    else return search(root->right,x);
+}
