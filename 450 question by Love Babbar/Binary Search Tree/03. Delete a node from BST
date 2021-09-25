@@ -1,0 +1,36 @@
+//Link of the question-https://practice.geeksforgeeks.org/problems/delete-a-node-from-bst/1#
+// Function to delete a node from BST.
+Node* inorderSuccesor(Node *root){
+    Node* current=root;
+    while(current && current->left != NULL){
+        current=current->left;
+    }
+    return current;
+}
+Node *deleteNode(Node *root, int x) {
+    // your code goes here
+    if(root==NULL) return NULL;
+    if(x<root->data){
+        root->left=deleteNode(root->left,x);
+    }
+    else if(x>root->data){
+        root->right=deleteNode(root->right,x);
+    }
+    else{
+        if(root->left==NULL){
+            Node * temp=root->right;
+            free(root);
+            return temp;
+        }
+        else if(root->right==NULL){
+            Node* temp=root->left;
+            free(root);
+            return temp;
+        }
+        
+        Node *temp=inorderSuccesor(root->right);//Finding value just less than x
+        root->data=temp->data;//swap the x and value just less than x
+        root->right=deleteNode(root->right,temp->data);//deleting the node with value just lesser than x after the swap in value
+    }
+    return root;
+}
