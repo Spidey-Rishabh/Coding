@@ -1,0 +1,14 @@
+//Link of the question-https://practice.geeksforgeeks.org/problems/max-and-min-element-in-binary-tree/1
+class Solution{
+public:
+    int findMax(Node *root){
+        //code here
+        if(root->right==NULL) return root->data;
+        else return findMax(root->right);
+    }
+    int findMin(Node *root){
+        //code here
+        if(root->left==NULL) return root->data;
+        else return findMin(root->left);
+    }
+};
