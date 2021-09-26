@@ -1,0 +1,16 @@
+//Link of the question-https://practice.geeksforgeeks.org/problems/populate-inorder-successor-for-all-nodes/1#
+class Solution{
+public:
+    void Next(Node* root, Node* &prev){
+        if(root==NULL) return;
+        Next(root->left,prev);
+        if(prev!=NULL) prev->next=root;
+        prev=root;
+        Next(root->right,prev);
+    }
+    void populateNext(Node *root){
+        //code here
+        Node* prev=NULL;
+        Next(root,prev);
+    }
+};
