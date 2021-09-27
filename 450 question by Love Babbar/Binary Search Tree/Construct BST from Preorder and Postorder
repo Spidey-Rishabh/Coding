@@ -1,0 +1,41 @@
+//Link for postorder-https://practice.geeksforgeeks.org/problems/construct-bst-from-post-order/1#
+Node* constructBST(int postorder[],int* index,int key,int min,int max,int n){
+    if(*index<0) return NULL;
+    Node *root=NULL;
+    if(key>min && key<max){
+        root=new Node(key);
+        *index=*index-1;
+        if(*index>=0){
+            root->right=constructBST(postorder,index,postorder[*index],key,max,n);
+            root->left=constructBST(postorder,index,postorder[*index],min,key,n);
+        }
+        
+    }
+    return root;
+}
+
+Node *constructTree (int post[], int size){
+//code here
+    int index=size-1;
+    return constructBST(post,&index,post[index],INT_MIN,INT_MAX,size);
+}
+
+
+//Solution for preorder
+Node* constructBST(int preorder[],int *index,int key,int min,int max,int n){
+    if(*index>=n) return NULL;
+    Node *root=NULL;
+    if(key>min && key<max){
+        root=new Node(key);
+        *index=*index+1;
+        if(*index<n) root->left=constructBST(preorder,index,preorder[*index],min,key,n);
+        if(*index<n) root->right=constructBST(preorder,index,preorder[*index],key,max,n);
+    }
+    return root;
+}
+
+Node *constructTree (int pre[], int size){
+//code here
+    int index=0;
+    return constructBST(pre,&index,pre[0],INT_MIN,INT_MAX,size);
+}
