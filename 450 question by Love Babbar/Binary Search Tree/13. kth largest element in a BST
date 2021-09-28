@@ -1,0 +1,19 @@
+//Link of the question-https://practice.geeksforgeeks.org/problems/kth-largest-element-in-bst/1#
+class Solution{
+    public:
+    void inorder(Node* root,vector<int> &res){
+        if(root==NULL) return;
+        inorder(root->left,res);
+        res.push_back(root->data);
+        inorder(root->right,res);
+        
+    }
+    int kthLargest(Node *root,int K){
+        //Your code here
+        vector<int> res;
+        inorder(root,res);
+        int pos=(res.size()-1)-(K-1);
+        if(pos>=0) return res[pos];
+        else return -1;
+    }
+};
