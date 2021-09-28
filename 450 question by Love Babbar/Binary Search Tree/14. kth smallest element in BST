@@ -1,0 +1,19 @@
+//Link og=f the question-https://practice.geeksforgeeks.org/problems/find-k-th-smallest-element-in-bst/1#
+class Solution {
+  public:
+    // Return the Kth smallest element in the given BST
+    void inorder(Node* root,vector<int> &res){
+        if(root==NULL) return;
+        inorder(root->left,res);
+        res.push_back(root->data);
+        inorder(root->right,res);
+    }
+    int KthSmallestElement(Node *root,int K){
+        // add code here.
+        vector<int> res;
+        inorder(root,res);
+        int pos=K-1;
+        if(pos<res.size()) return res[pos];
+        else return -1;
+    }
+};
