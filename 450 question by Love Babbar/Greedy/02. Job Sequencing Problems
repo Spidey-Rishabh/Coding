@@ -1,0 +1,38 @@
+//Link of the question-https://practice.geeksforgeeks.org/problems/job-sequencing-problem-1587115620/1#
+class Solution {
+    public:
+    bool valid(int a[],int n){
+        for(int i=n;i>0;i--){
+            if(a[i]==0){
+                a[i]=1;
+                return true;
+            }
+        }
+        return false;
+    }
+    //Function to find the maximum profit and the number of jobs done.
+    vector<int> JobScheduling(Job arr[], int n) { 
+        // your code here
+        vector<pair<int,int>> v(n);
+        int maximum=INT_MIN;
+        for(int i=0;i<n;i++){
+            v.push_back({arr[i].dead,arr[i].profit});
+            maximum=max(maximum,arr[i].profit);
+        }
+        sort(v.begin(),v.end(),[&](pair<int,int>& a,pair<int,int>& b){
+            return a.second>b.second;
+        });
+        int a[maximum]={0};
+        int res=0,profit=0;
+        for(int i=0;i<n;i++){
+            if(valid(a,v[i].first)){
+                res++;
+                profit+=v[i].second;
+            }
+        }
+        vector<int> ans;
+        ans.push_back(res);
+        ans.push_back(profit);
+        return ans;
+    } 
+};
