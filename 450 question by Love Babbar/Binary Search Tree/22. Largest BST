@@ -1,0 +1,35 @@
+//Link of the question-https://practice.geeksforgeeks.org/problems/largest-bst/1#
+struct Info{
+    int min;
+    int max;
+    int size;
+    int ans;
+    bool isBST;
+};
+class Solution{
+    public:
+    Info findLargestBST(Node *root){
+        if(root==NULL) return {INT_MAX,INT_MIN,0,0,true};
+        if(root->left==NULL && root->right==NULL) return {root->data,root->data,1,1,true};
+        Info LeftBST=findLargestBST(root->left);
+        Info RightBST=findLargestBST(root->right);
+        Info curr;
+        curr.size=1+LeftBST.size+RightBST.size;
+        if(LeftBST.isBST && RightBST.isBST && LeftBST.max < root->data && RightBST.min > root->data){
+            curr.isBST=true;
+            curr.min=min(min(LeftBST.min,RightBST.min),root->data);
+            curr.max=max(max(LeftBST.max,RightBST.max),root->data);
+            curr.ans=curr.size;
+            return curr;
+        }
+        
+        curr.ans=max(LeftBST.ans,RightBST.ans);
+        curr.isBST=false;
+        return curr;
+    }
+    int largestBst(Node *root){
+    	//Your code here
+    	Info res=findLargestBST(root);
+    	return res.ans;
+    }
+};
