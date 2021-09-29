@@ -1,0 +1,13 @@
+//Link of the question-https://practice.geeksforgeeks.org/problems/preorder-to-postorder4423/1#
+Node* insert(Node* root,int n){
+    if(root==NULL) return newNode(n);
+    if(root->data>n) root->left=insert(root->left,n);
+    else root->right=insert(root->right,n);
+    return root;
+}
+Node* constructTree(int pre[], int size){
+    //code here
+    Node *root=NULL;
+    for(int i=0;i<size;i++) root=insert(root,pre[i]);
+    return root;
+}
