@@ -1,0 +1,26 @@
+//Link of the question-https://www.geeksforgeeks.org/maximum-product-subset-array/
+class Solution{
+public:
+	long long maxProduct(vector<int> arr, int n) {
+	    // code here
+	   int cnt_zero=0,neg=0,min_neg=INT_MIN;
+	   long long int res=1;
+	   for(int i=0;i<n;i++){
+	       if(arr[i]==0){
+	           cnt_zero++;
+	           continue;
+	       }
+	       if(arr[i]<0){
+	           neg++;
+	           min_neg=max(min_neg,arr[i]);
+	       }
+	       res*=arr[i];
+	   }
+	   if(cnt_zero==n) return 0;
+	   if(neg & 1){
+	       if(neg==1 && cnt_zero>0 && cnt_zero+neg==n) return 0;
+	       res=res/min_neg;
+	   }
+	   return res;
+	}
+};
