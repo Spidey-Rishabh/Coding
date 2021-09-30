@@ -1,0 +1,14 @@
+//Link of the question-https://practice.geeksforgeeks.org/problems/maximize-arrii-of-an-array0026/1
+class Solution{
+    public:
+    int Maximize(int arr[],int n){
+        // Complete the function
+       int mod=1000000007;
+       long long sum=0;
+       sort(arr,arr+n);
+       for(long long i=0;i<n;i++){
+           sum+=arr[i]* i;
+       }   
+       return sum%mod;
+    }
+};
