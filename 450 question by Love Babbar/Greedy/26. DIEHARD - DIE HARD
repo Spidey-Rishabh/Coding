@@ -1,0 +1,38 @@
+//LInk of the question-https://www.spoj.com/problems/DIEHARD/
+#include <iostream>
+using namespace std;
+
+int main() {
+	// your code goes here
+	int tc;
+	cin>>tc;
+	while(tc--){
+		int a,b,t;
+		cin>>a>>b;
+		int arm,h;
+		if(a==0||b==0)
+         cout<<0<<endl;
+        else{
+            t=1;
+            h=a+3;
+            arm=b+2;
+            while(1){
+                if(h>5&&arm>10){
+                    h=h-2;
+                    arm=arm-8;
+                    t=t+2;
+                }
+                else if(h>20&&arm<=10){
+                    h=h-17;
+                    arm=arm+7;
+                    t=t+2;
+                }
+                else{
+                    cout<<t<<endl;
+                    break;
+                }
+            }
+        }
+	}
+	return 0;
+}
