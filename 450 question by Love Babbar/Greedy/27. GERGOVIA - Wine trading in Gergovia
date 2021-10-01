@@ -1,0 +1,27 @@
+//Link of the question-https://www.spoj.com/problems/GERGOVIA/
+#include <iostream>
+using namespace std;
+
+int main() {
+	// your code goes here
+	
+	while(1){
+		int tc;
+		cin>>tc;
+		if(tc!=0){
+			int arr[tc];
+			for(int i=0;i<tc;i++) cin>>arr[i];
+			long long int res=0;
+			res=abs(arr[0]);
+			int prev_sum=arr[0];
+			for(int i=1;i<tc;i++){
+				int temp=arr[i]+prev_sum;
+				prev_sum+=arr[i];
+				res+=abs(temp);
+			}
+			cout<<res<<endl;
+		}
+		else return 0;
+	}
+	
+}
