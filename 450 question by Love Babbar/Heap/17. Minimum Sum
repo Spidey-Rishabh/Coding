@@ -1,0 +1,57 @@
+//Link of the question-https://practice.geeksforgeeks.org/problems/minimum-sum4058/1#
+class Solution{   
+public:
+    string solve(int arr[], int n) {
+        // code here
+        string a = "";
+        string b = "";
+        
+        sort(arr, arr+n);
+        
+        for(int i=0; i<n; i++){
+            if(i%2){
+                b += (arr[i] +'0');
+            }else{
+                a += (arr[i] + '0');
+            }
+        }
+        string ans = "";
+        
+        n = a.length();
+        int m = b.length();
+        int carry = 0;
+        
+        reverse(a.begin(), a.end());
+        reverse(b.begin(), b.end());
+        
+        int i=0, j = 0;
+        
+        while(i<n && j<m){
+            int sum = (a[i]-'0') + (b[i] - '0') + carry;
+            carry = sum/10;
+            if(sum == 0)break;
+            ans += (sum%10) + '0';
+            i++;
+            j++;
+        }
+        
+        while(i<n){
+            int sum = (a[i]-'0') +  carry;
+            carry = sum/10;
+            if(sum == 0)break;
+            ans += (sum%10) + '0';
+            i++;
+        }
+        while(j<m){
+            int sum = (b[j]-'0') +  carry;
+            carry = sum/10;
+            if(sum == 0)break;
+            ans += (sum%10) + '0';
+            j++;
+        }
+        if(carry!=0)ans += (carry + '0');
+        
+        reverse(ans.begin(), ans.end());
+        return ans;
+    }
+};
