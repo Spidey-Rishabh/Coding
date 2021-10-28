@@ -1,0 +1,22 @@
+//Link of the question-https://practice.geeksforgeeks.org/problems/permutations-of-a-given-string2041/1#
+class Solution{
+	public:
+	    void permute(string s,vector<string> &str,int l,int r){
+	        if(l==r){
+	            str.push_back(s);
+	        }
+	        for(int i=l;i<=r;i++){
+	            //cout<<s<<" ";
+	            swap(s[l],s[i]);
+	            permute(s,str,l+1,r);
+	            swap(s[l],s[i]);
+	        }
+	    }
+		vector<string>find_permutation(string s){
+		    // Code here there
+		    vector<string> str;
+		    permute(s,str,0,s.length()-1);
+		    sort(str.begin(),str.end());
+		    return str;
+		}
+};
