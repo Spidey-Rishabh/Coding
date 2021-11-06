@@ -1,0 +1,38 @@
+//Link of the question-https://practice.geeksforgeeks.org/problems/word-break-part-23249/1#
+class Solution{
+public:
+    bool valid(string s, vector<string>& dict){
+        for(auto i:dict){
+            if(i==s) return true;
+        }
+        return false;
+    }
+    void itr(string s,vector<string> v, vector<string>& dict,int x,vector<string>& ans){
+        
+        if(x>=s.size()){
+            string tmp="";
+            for(auto i:v){
+                tmp=tmp+i;
+                tmp=tmp+" ";
+            }
+            tmp.pop_back();
+            ans.push_back(tmp);
+            return ;
+        }
+        string k="";
+        for(int i=x;i<s.size();i++){
+            k.push_back(s[i]);
+            if(valid(k,dict)){
+                v.push_back(k);
+                itr(s,v,dict,i+1,ans);
+                v.pop_back();
+            }
+        }
+    }
+    vector<string> wordBreak(int n, vector<string>& dict, string s){
+        // code here
+        vector<string> ans;
+        itr(s,{},dict,0,ans);
+        return ans;
+    }
+};
