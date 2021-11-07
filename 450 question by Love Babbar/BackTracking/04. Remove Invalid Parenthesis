@@ -1,0 +1,36 @@
+//Link of the question-https://leetcode.com/problems/remove-invalid-parentheses/submissions/
+class Solution {
+public:
+    set<string> st;
+    set<string> visited;
+    void removeAndCheck(string s,int idx){
+        if(visited.count(s)) return;
+        visited.insert(s);
+        if(idx==0) {
+                if(getMinRemoval(s)==0) st.insert(s);
+            return;
+        }
+        for(int i=0;i<s.size();i++){
+            string s1=s.substr(0,i);
+            string s2=s.substr(i+1);
+            removeAndCheck((s1+s2),idx-1);
+        }
+    }
+    int getMinRemoval(string& s){
+        stack<char> str;
+        for(auto c:s){
+            if(isalpha(c)) continue;
+            if(!str.empty() and str.top()=='(' and c==')' )
+                str.pop();
+            else str.push(c);
+        }
+        return str.size();
+    }
+    vector<string> removeInvalidParentheses(string s) {
+        int idx=getMinRemoval(s);
+        removeAndCheck(s,idx);
+        vector<string> ans;
+        for(auto x:st) ans.push_back(x);
+        return ans;
+    }
+};
