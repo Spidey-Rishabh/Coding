@@ -1,5 +1,4 @@
 //Link of the question-https://www.geeksforgeeks.org/given-a-string-print-all-possible-palindromic-partition/
-// C++ program to print all palindromic partitions of a given string
 #include<bits/stdc++.h>
 using namespace std;
 bool isPalindrome(string str, int low, int high){
