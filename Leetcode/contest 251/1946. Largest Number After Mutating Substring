@@ -1,0 +1,18 @@
+class Solution {
+public:
+    string maximumNumber(string num, vector<int>& change) {
+        int prev=-1;
+        for(int i=0;i<num.size();i++){
+            int temp=num[i]-48;
+            //cout<<temp<<" "<<change[temp]<<endl;
+            if((temp<change[temp]) && (prev==-1 || prev==1)){
+                num[i]=change[temp]+48;
+                prev=1;
+            }
+            else if(temp==change[temp] )continue;
+            else if(prev==-1) prev=-1;
+            else break;
+        }
+        return num;
+    }
+};
