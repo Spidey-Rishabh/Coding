@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int sum_of_digits(int n){
+        int sum=0;
+        while(n){
+            sum+=n%10;
+            n=n/10;
+        }
+        return sum;
+    }
+    int getLucky(string s, int k) {
+        int sum=0;
+        for(int i=0;i<s.length();i++){
+            //cout<<s[i]-96<<" ";
+            sum+=sum_of_digits(s[i]-96);
+        }
+        k--;
+        //cout<<sum<<endl;
+        while(k--){
+          sum=sum_of_digits(sum);
+            //cout<<sum<<endl;
+        } 
+        return sum;
+    }
+};
