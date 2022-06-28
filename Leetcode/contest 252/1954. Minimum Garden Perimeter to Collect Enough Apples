@@ -1,0 +1,12 @@
+class Solution {
+public:
+    long long minimumPerimeter(long long neededApples) {
+        long long left=0,right=pow(10,5);
+        while(left<right){
+            long long temp=(left+right)/2;
+            if(2*temp*(temp+1)*(2*temp+1)>=neededApples) right=temp;
+            else left=temp+1;
+        }
+        return 8*left;
+    }
+};
