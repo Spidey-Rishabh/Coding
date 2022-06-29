@@ -2,32 +2,17 @@
 class Solution {
 public:
     void nextPermutation(vector<int>& nums) {
-        int pos;
-        if(nums.size()==1) return;
-        if(nums.size()==2){
-            swap(nums[0],nums[1]);
-            return;
+        int pos=nums.size()-2;
+        while(pos>=0 && nums[pos+1]<=nums[pos]) pos--;
+
+        if(pos>=0){
+            int j=nums.size()-1;
+            while(nums[j]<=nums[pos]) j--;
+            swap(nums[pos],nums[j]);
         }
-        for(int i=nums.size()-2;i>=0;i--){
-            if(nums[i]<nums[i+1]){
-                pos=i;
-                break;
-            }
-            else pos=-1;
-        }//cout<<pos<<endl;
-        if(pos==-1){
-            sort(nums.begin(),nums.end());
-            
-        }else{
-            int diff=INT_MAX,pos2;
-            for(int i=pos+1;i<nums.size();i++){
-                if(nums[i]-nums[pos]<=diff && nums[i]-nums[pos]>0){
-                    diff=nums[i]-nums[pos];
-                    pos2=i;
-                }
-            }//cout<<pos2<<endl;
-            swap(nums[pos],nums[pos2]);
-            reverse(nums.begin()+pos+1,nums.end());
-        }
+        reverse(nums.begin()+pos+1,nums.end());
     }
 };
+
+
+//Animation for easy understand: https://leetcode.com/media/original_images/31_Next_Permutation.gif
