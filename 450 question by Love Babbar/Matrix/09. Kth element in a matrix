@@ -1,33 +1,49 @@
 //Link of the question-https://practice.geeksforgeeks.org/problems/kth-element-in-matrix/1
-#include<bits/stdc++.h>
-using namespace std;
-#define MAX 1000
-int mat[MAX][MAX];
-int kthSmallest(int mat[MAX][MAX], int n, int k);
-int main(){
-    int t;
-    cin>>t;
-    while(t--){
-        int n;
-        cin>>n;
-      for(int i=0;i<n;i++)
-        for(int j=0;j<n;j++)
-          cin>>mat[i][j];
-        int r;
-        cin>>r;
-        cout<<kthSmallest(mat,n,r)<<endl;
+
+int solve(int arr[],int target,int n){
+        int low=0,high=n-1;
+        while(low<=high){
+            int mid=(low+high)>>1;
+            if(arr[mid]<=target) low=mid+1;
+            else high=mid-1;
+        }
+        return low;
     }
-     // cout << "7th smallest element is " << kthSmallest(mat, 4, 7);
-      return 0;
-}
-int kthSmallest(int Mat[MAX][MAX], int N, int k){
+int kthSmallest(int mat[MAX][MAX], int n, int k){
   //Your code here
-  vector<int> v;
-  for(int i=0;i<N;i++){
-    for(int j=0;j<N;j++){
-        v.push_back(Mat[i][j]);
-    }   
-  }
-  sort(v.begin(),v.end());
-  return v[k-1];
+  
+    int ans=-1;
+    int lo=mat[0][0];
+	int hi=mat[n-1][n-1];
+	while(lo<=hi){
+	    int mid=lo+(hi-lo)/2;
+		int cnt=0;
+		for(int i=0;i<n;i++){
+		   cnt+=solve(mat[i],mid,n);
+		}
+		if(cnt<k) {
+		  lo=mid+1;
+		}
+		else {
+		  hi=mid-1;
+		}
+	}
+		      
+    int fa=lo;
+	fa=fa-1;
+	while(fa>0) { 
+    	int cnt=0;		    	   
+    	for(int i=0;i<n;i++){
+    	    cnt+=solve(mat[i],fa,n);
+    	}
+    	if(cnt==k) {
+    	    lo=fa;
+    		fa=fa-1;		        	   
+    		}
+    	else {		        	   
+    	   break;
+        }
+	}
+		       
+    return lo;
 }
